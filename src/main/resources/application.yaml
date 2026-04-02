@@ -18,7 +18,11 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   liquibase:
     change-log: classpath:/db/changelog/master.yaml
-
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 100MB
 logging:
   level:
     root: info
@@ -27,3 +31,6 @@ logging:
 
   pattern:
     dateformat: yyyy-MM-dd HH:mm:ss.SSS
+app:
+  upload:
+    dir: data\
