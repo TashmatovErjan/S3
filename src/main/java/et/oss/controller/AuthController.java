@@ -23,18 +23,23 @@ public class AuthController {
     @GetMapping("/register")
     public String getRegister(Model model) {
         model.addAttribute("userDto", new UserDto());
-        return "auth/register";
+        return "auth/auth";
     }
 
     @PostMapping("/register")
-    public String registerApplicant(@ModelAttribute("userDto") UserDto userDto, Model model) {
+    public String registerUser(@Valid @ModelAttribute("userDto") UserDto userDto,
+                               BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "auth/auth";
+        }
         authService.registerUser(userDto);
-        return "redirect:/auth/login";
+        return "auth/auth";
     }
 
     @GetMapping("/login")
-    public String getLogin() {
-        return "auth/login";
+    public String getLogin(Model model) {
+        model.addAttribute("userDto", new UserDto());
+        return "auth/auth";
     }
 
 }

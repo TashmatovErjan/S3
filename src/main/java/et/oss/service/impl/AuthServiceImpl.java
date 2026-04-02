@@ -24,14 +24,13 @@ public class AuthServiceImpl implements AuthService {
     public void registerUser(UserDto userDto) {
 
         if (userRepository.existsByEmail(userDto.getEmail())) {
-            throw new UserAlreadyExistsException("...");
+            throw new UserAlreadyExistsException("Пользователь с такой почтой уже существует");
         }
 
-        Long roleId = roleService.getRoleId();
         User user = User.builder()
                 .email(userDto.getEmail())
                 .password(passwordEncoder.encode(userDto.getPassword()))
-                .roleId(roleId)
+                .roleId(roleService.getRoleId())
                 .enabled(true)
                 .build();
 

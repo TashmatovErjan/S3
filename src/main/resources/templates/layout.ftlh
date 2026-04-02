@@ -68,7 +68,6 @@
                         <a href="/logout" class="btn btn-outline-danger">Выйти</a>
                     <#else>
                         <a href="/auth/login" class="btn btn-outline-light">Войти</a>
-                        <a href="/auth/register" class="btn btn-black">Регистрация </a>
                     </#if>
                 </div>
             </div>
