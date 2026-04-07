@@ -1,6 +1,7 @@
 package et.oss.service.impl;
 
 import et.oss.Util.FileUtil;
+import et.oss.dto.FileDto;
 import et.oss.dto.UserDto;
 import et.oss.model.User;
 import et.oss.model.File;
@@ -8,6 +9,8 @@ import et.oss.repository.FIleRepository;
 import et.oss.service.AuthService;
 import et.oss.service.FileService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,14 +30,9 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public List<String> uploadFile(List<MultipartFile> files, Authentication authentication) throws IOException {
-
-
-
         UserDto userDto = authService.getUserByEmail(authentication.getName());
         User user = convertToModelUser(userDto);
         List<String> result = new ArrayList<>();
-//        User user = (User) authentication.getPrincipal();
-
         for (MultipartFile multipartFile : files) {
             if (multipartFile.isEmpty()) {
                 continue;
@@ -57,10 +55,31 @@ public class FileServiceImpl implements FileService {
         return result;
     }
 
+    @Override
+    public Page<FileDto> getAllFilesByUser(Pageable pageable, Authentication authentication){
+        UserDto userDto = authService.getUserByEmail(authentication.getName());
+        User user = convertToModelUser(userDto);
+        return fileRepository.findAllByAuthor_Id(user.getId(), pageable)
+                .map(this::convertToDto);
+
+    }
+
     private User convertToModelUser(UserDto dto) {
         return User.builder()
                 .id(dto.getId())
                 .email(dto.getEmail())
                 .build();
     }
+
+    private FileDto convertToDto(File file) {
+        return FileDto.builder()
+                .id(file.getId())
+                .name(file.getName())
+                .size(file.getSize())
+                .createDate(file.getCreatDate())
+                .fileType(file.getFileType())
+                .authorId(file.getAuthor().getId())
+                .build();
+    }
+
 }
