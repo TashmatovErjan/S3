@@ -4,7 +4,7 @@ databaseChangeLog:
           author: Erjan
           changes:
               - createTable:
-                    tableName: roles
+                    tableName: role
                     columns:
                         - column:
                               name: id
@@ -15,4 +15,4 @@ databaseChangeLog:
                                   nullable: false
                         - column:
                               name: name
-                              type: VARCHAR(45)
+                              type: VARCHAR(30)
