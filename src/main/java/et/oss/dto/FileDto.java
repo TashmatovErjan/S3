@@ -13,7 +13,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class FileDto {
     private Long id;
-    private String name;
+    private String fileName;
+    private String originalName;
     private Long size;
     private LocalDateTime createDate;
     private String fileType;

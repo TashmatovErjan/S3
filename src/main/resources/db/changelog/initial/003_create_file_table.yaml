@@ -14,7 +14,10 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: name
+                  name: file_name
+                  type: VARCHAR
+              - column:
+                  name: original_name
                   type: VARCHAR
               - column:
                   name: size

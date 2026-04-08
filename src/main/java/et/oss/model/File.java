@@ -17,7 +17,11 @@ public class File {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    @Column(name = "file_name")
+    private String fileName;
+
+    @Column(name = "original_name")
+    private String originalName;
 
     private Long size;
 
