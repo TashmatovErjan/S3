@@ -18,8 +18,17 @@ public class FileController {
     private final FileService fileService;
 
     @PostMapping("/upload")
-    public String uploadFile(@RequestParam(required = false) List<MultipartFile> file, Authentication authentication) throws IOException {
+    public String uploadFile(@RequestParam List<MultipartFile> file, Authentication authentication) throws IOException {
+        if (file == null || file.isEmpty()) {
+            return "redirect:/";
+        }
         fileService.uploadFile(file, authentication);
+        return "redirect:/";
+    }
+
+    @PostMapping("/delete/{fileName}")
+    public String deleteFile(@PathVariable String fileName) throws IOException {
+        fileService.deleteFile(fileName);
         return "redirect:/";
     }
 

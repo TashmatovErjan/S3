@@ -13,4 +13,6 @@ public interface FileService {
     List<String> uploadFile(List<MultipartFile> file, Authentication authentication) throws IOException;
 
     Page<FileDto> getAllFilesByUser(Pageable pageable, Authentication authentication);
+
+    void deleteFile(String fileName);
 }

@@ -1,5 +1,6 @@
 package et.oss.Util;
 
+import et.oss.exceptions.FileStorageException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,11 +29,10 @@ public class FileUtil {
         String uuidFile = UUID.randomUUID().toString();
         String resultFileName = uuidFile + "_" + file.getOriginalFilename();
 
-        Path pathDir = Paths.get(uploadDir +  subDir);
+        Path pathDir = Paths.get(uploadDir).resolve(subDir);
         Files.createDirectories(pathDir);
 
-        Path filePath = Paths.get( pathDir + "/" + resultFileName);
-
+        Path filePath = pathDir.resolve(resultFileName);
         Files.copy(file.getInputStream(), filePath);
         return resultFileName;
     }
@@ -53,4 +53,20 @@ public class FileUtil {
             return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error");
         }
     }
+
+    public ResponseEntity<String> deleteFile (String fileName) {
+        try {
+            Path filePath = Paths.get(uploadDir).resolve("files").resolve(fileName).normalize();
+            if (Files.exists(filePath)) {
+                Files.delete(filePath);
+                return ResponseEntity.ok("File deleted successfully: " + fileName);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("File not found: " + fileName);
+            }
+        } catch (IOException e) {
+            throw new FileStorageException("Failed to delete file ");
+        }
+    }
+
+
 }

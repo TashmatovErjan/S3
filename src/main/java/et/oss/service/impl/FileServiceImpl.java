@@ -3,6 +3,7 @@ package et.oss.service.impl;
 import et.oss.Util.FileUtil;
 import et.oss.dto.FileDto;
 import et.oss.dto.UserDto;
+import et.oss.exceptions.FileStorageException;
 import et.oss.model.User;
 import et.oss.model.File;
 import et.oss.repository.FIleRepository;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -41,7 +43,8 @@ public class FileServiceImpl implements FileService {
 
             File file = File.builder()
                     .author(user)
-                    .name(multipartFile.getOriginalFilename())
+                    .fileName(savedFileName)
+                    .originalName(multipartFile.getOriginalFilename())
                     .size(multipartFile.getSize())
                     .creatDate(LocalDateTime.now())
                     .fileType(multipartFile.getContentType())
@@ -64,6 +67,16 @@ public class FileServiceImpl implements FileService {
 
     }
 
+    @Override
+    @Transactional
+    public void deleteFile(String originalFileName) {
+        File file = fileRepository.findByOriginalName(originalFileName)
+                .orElseThrow(() -> new FileStorageException("File not found"));
+
+        fileUtil.deleteFile(file.getFileName());
+        fileRepository.delete(file);
+    }
+
     private User convertToModelUser(UserDto dto) {
         return User.builder()
                 .id(dto.getId())
@@ -74,7 +87,8 @@ public class FileServiceImpl implements FileService {
     private FileDto convertToDto(File file) {
         return FileDto.builder()
                 .id(file.getId())
-                .name(file.getName())
+                .fileName(file.getFileName())
+                .originalName(file.getOriginalName())
                 .size(file.getSize())
                 .createDate(file.getCreatDate())
                 .fileType(file.getFileType())

@@ -6,7 +6,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface FIleRepository extends JpaRepository<File, Long> {
     Page<File> findAllByAuthor_Id(Long authorId, Pageable pageable);
+    Optional<File> findByOriginalName(String originalName);
 }

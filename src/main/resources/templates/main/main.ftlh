@@ -18,6 +18,20 @@
             from { opacity: 0; transform: translateY(-6px); }
             to   { opacity: 1; transform: translateY(0); }
         }
+        .actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+        .icon-btn {
+            width: 28px; height: 28px;
+            border-radius: 6px;
+            border: 0.5px solid #dddcd4;
+            background: white;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.1s;
+            padding: 0;
+        }
+        .icon-btn:hover { background: #f5f4f0; }
+        .icon-btn.del:hover { background: #fcebeb; border-color: #f7c1c1; }
+        .icon-btn svg { width: 14px; height: 14px; pointer-events: none; }
     </style>
 
     <div class="upload-page">
@@ -59,10 +73,24 @@
                 <#list dto.content as file>
                     <div class="file-row">
                         <div>
-                            <div class="file-name">${file.name!''}</div>
+                            <div class="file-name">${file.originalName}</div>
                             <div class="file-meta">${file.createDate!''} · ${file.fileType!''} · ${file.size!''}</div>
                         </div>
-                        <span class="badge badge-ok">готов</span>
+                        <div class="actions">
+                            <button type="button" class="icon-btn" title="Скачать" onclick="alert('Скачивание пока недоступно')">
+                                <svg viewBox="0 0 16 16" fill="none" stroke="#888" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M8 2v8M5 7l3 3 3-3"/><path d="M3 11v2h10v-2"/>
+                                </svg>
+                            </button>
+                            <form action="/file/delete/${file.originalName}" method="post" style="margin:0;">
+                                <input type="hidden" name="_csrf" value="${_csrf.token}" />
+                                <button type="submit" class="icon-btn del" title="Удалить">
+                                    <svg viewBox="0 0 16 16" fill="none" stroke="#888" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M3 4h10M6 4V3h4v1M5 4l.5 8h5L11 4"/>
+                                    </svg>
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </#list>
             </div>
@@ -123,7 +151,18 @@
                             '<div class="file-name">' + f.name + '</div>' +
                             '<div class="file-meta">' + now + ' · ' + (f.type || '—') + ' · ' + f.size + '</div>' +
                             '</div>' +
-                            '<span class="badge badge-ok">готов</span>';
+                            '<div class="actions">' +
+                            '<button type="button" class="icon-btn" title="Скачать" onclick="alert(\'Скачивание пока недоступно\')">' +
+                            '<svg viewBox="0 0 16 16" fill="none" stroke="#888" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">' +
+                            '<path d="M8 2v8M5 7l3 3 3-3"/><path d="M3 11v2h10v-2"/>' +
+                            '</svg>' +
+                            '</button>' +
+                            '<button type="button" class="icon-btn del" title="Удалить (обновите страницу)">' +
+                            '<svg viewBox="0 0 16 16" fill="none" stroke="#888" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">' +
+                            '<path d="M3 4h10M6 4V3h4v1M5 4l.5 8h5L11 4"/>' +
+                            '</svg>' +
+                            '</button>' +
+                            '</div>';
                         uploadedList.prepend(row);
                     }
 
