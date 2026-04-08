@@ -77,7 +77,7 @@
                             <div class="file-meta">${file.createDate!''} · ${file.fileType!''} · ${file.size!''}</div>
                         </div>
                         <div class="actions">
-                            <button type="button" class="icon-btn" title="Скачать" onclick="alert('Скачивание пока недоступно')">
+                            <button type="button" class="icon-btn" title="Скачать" onclick="window.location.href='/file/download/${file.fileName}'">
                                 <svg viewBox="0 0 16 16" fill="none" stroke="#888" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M8 2v8M5 7l3 3 3-3"/><path d="M3 11v2h10v-2"/>
                                 </svg>
@@ -152,7 +152,7 @@
                             '<div class="file-meta">' + now + ' · ' + (f.type || '—') + ' · ' + f.size + '</div>' +
                             '</div>' +
                             '<div class="actions">' +
-                            '<button type="button" class="icon-btn" title="Скачать" onclick="alert(\'Скачивание пока недоступно\')">' +
+                            '<button type="button" class="icon-btn" title="Скачать" >' +
                             '<svg viewBox="0 0 16 16" fill="none" stroke="#888" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">' +
                             '<path d="M8 2v8M5 7l3 3 3-3"/><path d="M3 11v2h10v-2"/>' +
                             '</svg>' +

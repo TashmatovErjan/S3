@@ -2,11 +2,9 @@ package et.oss.Util;
 
 import et.oss.exceptions.FileStorageException;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,21 +35,16 @@ public class FileUtil {
         return resultFileName;
     }
 
+    public Resource getFileAsResource(String filename) throws IOException {
+        Path filePath = Paths.get(uploadDir)
+                .resolve("files")
+                .resolve(filename)
+                .normalize();
 
-    public ResponseEntity<?> getOutputFIle (String filename, MediaType mediaType) throws IOException {
-        try{
-            byte[] file = Files.readAllBytes(Paths.get(uploadDir + filename));
-            Resource resource = new ByteArrayResource(file);
-            return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filename + "\"")
-                    .contentLength(resource.contentLength())
-                    .contentType(mediaType)
-                    .body(resource);
-        } catch (NoSuchFileException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("File Not Found");
-        } catch (IOException e){
-            return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error");
+        if (!Files.exists(filePath)) {
+            throw new NoSuchFileException(filename);
         }
+        return new InputStreamResource(Files.newInputStream(filePath));
     }
 
     public ResponseEntity<String> deleteFile (String fileName) {
