@@ -14,7 +14,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Long getRoleId() {
-        Long id = roleRepository.findByName("ROLE_USER")
+        Long id = roleRepository.findByName("USER")
                 .orElseThrow(() -> {
                     return new AccountTypeNotFoundException("Account type USER not found");
                 })
