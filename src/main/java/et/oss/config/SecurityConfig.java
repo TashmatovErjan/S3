@@ -23,7 +23,6 @@ public class SecurityConfig {
         http
                 .sessionManagement( session ->
                         session.sessionCreationPolicy( SessionCreationPolicy.ALWAYS ))
-                .httpBasic(Customizer.withDefaults())
                 .formLogin(form -> form
                         .loginPage("/auth/login")
                         .loginProcessingUrl("/auth/login")
