@@ -23,6 +23,12 @@ databaseChangeLog:
                   name: password_hash
                   type: VARCHAR
               - column:
+                  name: reset_password_link
+                  type: VARCHAR
+              - column:
+                  name: reset_token_expires_at
+                  type: TIMESTAMP
+              - column:
                   name: role_id
                   type: BIGINT
                   constraints:
