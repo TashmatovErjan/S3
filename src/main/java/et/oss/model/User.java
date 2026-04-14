@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Entity
@@ -16,6 +18,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "email", unique = true)
     private String email;
 
     @Column(name = "password_hash")
@@ -30,4 +33,10 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "role_id", insertable = false, updatable = false)
     private Role accountType;
+
+    @Column(name = "reset_token_expires_at")
+    private LocalDateTime resetTokenExpiresAt;
+
+    @Column(name = "reset_password_link")
+    private String resetPasswordLink;
 }
