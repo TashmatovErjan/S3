@@ -69,6 +69,18 @@
 
         .auth-submit-btn:hover { opacity: 0.85; }
 
+        .forgot-btn {
+            background-color: white;
+            color: black;
+            text-decoration: none;
+        }
+
+        .forgot-btn:hover {
+            background-color: #f8f9fa;
+            color: black;
+        }
+        .alert { font-size: 13px; padding: 8px 12px; border-radius: 8px; margin-bottom: 1rem; }
+        .alert-err { background: #fcebeb; color: #a32d2d; border: 0.5px solid #f7c1c1; }
         .error-text { font-size: 13px; color: red; }
     </style>
 
@@ -96,17 +108,22 @@
                                class="form-control auth-input"
                                placeholder="Пароль">
                     </div>
-                    <button type="submit" class="auth-submit-btn">Войти</button>
+                    <button type="submit" class="auth-submit-btn"><Войти></Войти></button>
                 </form>
+
+                <a href="/auth/forgotPassword" class="forgot-btn">Забыли пароль ? </a>
             </div>
 
             <div id="form-register" class="auth-form">
+                <#if error??>
+                    <div class="alert alert-err">${error}</div>
+                </#if>
                 <form action="/auth/register" method="post">
                     <input type="hidden" name="_csrf" value="${_csrf.token}" />
 
                     <div class="form-group mb-3">
-                        <label for="userDto.email">Почта</label>
-                        <@spring.formInput "userDto.email" 'class="form-control auth-input" id="userDto.email"' />
+                        <label for="registerDto.email">Почта</label>
+                        <@spring.formInput "registerDto.email" 'class="form-control auth-input" id="registerDto.email"' />
                         <div class="text-danger" style="font-size: 13px; margin-top: 4px;">
                             <@spring.showErrors "<br>" />
                         </div>
@@ -116,8 +133,8 @@
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="userDto.password">Пароль</label>
-                        <@spring.formInput "userDto.password" 'class="form-control auth-input" id="userDto.password" type="password"' />
+                        <label for="registerDto.password">Пароль</label>
+                        <@spring.formInput "registerDto.password" 'class="form-control auth-input" id="registerDto.password" type="password"' />
                         <div class="text-danger" style="font-size: 13px; margin-top: 4px;">
                             <@spring.showErrors "<br>" />
                         </div>
