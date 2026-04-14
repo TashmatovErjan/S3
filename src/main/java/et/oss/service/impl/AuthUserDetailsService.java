@@ -20,7 +20,7 @@ public class AuthUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         et.oss.model.User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Пользователь не найден с email: " + email));
+                .orElseThrow(() -> new UsernameNotFoundException("Пользователь с такой почтой не найден: " + email));
 
         String role = user.getAccountType().getName();
 
