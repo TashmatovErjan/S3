@@ -108,7 +108,7 @@
                                class="form-control auth-input"
                                placeholder="Пароль">
                     </div>
-                    <button type="submit" class="auth-submit-btn"><Войти></Войти></button>
+                    <button type="submit" class="auth-submit-btn">Войти</button>
                 </form>
 
                 <a href="/auth/forgotPassword" class="forgot-btn">Забыли пароль ? </a>
@@ -122,8 +122,8 @@
                     <input type="hidden" name="_csrf" value="${_csrf.token}" />
 
                     <div class="form-group mb-3">
-                        <label for="registerDto.email">Почта</label>
-                        <@spring.formInput "registerDto.email" 'class="form-control auth-input" id="registerDto.email"' />
+                        <label for="registerDto.email"></label>
+                        <@spring.formInput "registerDto.email" 'class="form-control auth-input" id="registerDto.email" placeholder="Почта"' />
                         <div class="text-danger" style="font-size: 13px; margin-top: 4px;">
                             <@spring.showErrors "<br>" />
                         </div>
@@ -133,8 +133,8 @@
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="registerDto.password">Пароль</label>
-                        <@spring.formInput "registerDto.password" 'class="form-control auth-input" id="registerDto.password" type="password"' />
+                        <label for="registerDto.password"></label>
+                        <@spring.formInput "registerDto.password" 'class="form-control auth-input" id="registerDto.password" type="password" placeholder="Пароль"' />
                         <div class="text-danger" style="font-size: 13px; margin-top: 4px;">
                             <@spring.showErrors "<br>" />
                         </div>
