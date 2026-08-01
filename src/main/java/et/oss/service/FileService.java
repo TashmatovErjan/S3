@@ -14,5 +14,7 @@ public interface FileService {
 
     Page<FileDto> getAllFilesByUser(Pageable pageable, Authentication authentication);
 
-    void deleteFile(String fileName);
+    Long getUserFilesCount(Long authorId);
+
+//    void deleteFile(String fileName);
 }

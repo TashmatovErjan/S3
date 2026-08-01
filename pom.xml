@@ -6,13 +6,13 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.4.3</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
-    <groupId>kg.attractor</groupId>
-    <artifactId>JobSearch</artifactId>
+    <groupId>et.oss</groupId>
+    <artifactId>object-storage-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>JobSearch</name>
-    <description>JobSearch</description>
+    <name>object-storage-service</name>
+    <description>Object storage service</description>
     <url/>
     <licenses>
         <license/>

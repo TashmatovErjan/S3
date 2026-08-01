@@ -11,5 +11,6 @@ import java.util.Optional;
 @Repository
 public interface FIleRepository extends JpaRepository<File, Long> {
     Page<File> findAllByAuthor_Id(Long authorId, Pageable pageable);
-    Optional<File> findByOriginalName(String originalName);
+//    Optional<File> findFilesBy(String originalName);
+    Long countByAuthor_Id(Long authorId);
 }

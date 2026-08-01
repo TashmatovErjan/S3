@@ -33,11 +33,11 @@ public class FileController {
         return "redirect:/";
     }
 
-    @PostMapping("/delete/{fileName}")
-    public String deleteFile(@PathVariable String fileName) throws IOException {
-        fileService.deleteFile(fileName);
-        return "redirect:/";
-    }
+//    @PostMapping("/delete/{fileName}")
+//    public String deleteFile(@PathVariable String fileName) throws IOException {
+//        fileService.deleteFile(fileName);
+//        return "redirect:/";
+//    }
 
     @GetMapping("/download/{fileName}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileName) {
