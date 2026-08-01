@@ -39,4 +39,7 @@ public class User {
 
     @Column(name = "reset_password_link")
     private String resetPasswordLink;
+
+    @Column (name = "storage_quota")
+    private Long storageQuota;
 }

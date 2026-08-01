@@ -24,7 +24,9 @@ public class ProfileController {
         UserDto currentUser = authService.getUserByEmail(currentUserEmail);
         model.addAttribute("fileCount", fileService.getUserFilesCount(currentUser.getId()));
         model.addAttribute("user", currentUser);
-
+        model.addAttribute("storageQuota", fileService.getFormattedUsedSpace(currentUser.getId()));
+        model.addAttribute("userQuota", fileService.getFormattedQuota(currentUser.getId()));
+        model.addAttribute("getUsedSpacePercent", fileService.getUsedSpacePercent(currentUser.getId()));
         return "profile/profile";
     }
 

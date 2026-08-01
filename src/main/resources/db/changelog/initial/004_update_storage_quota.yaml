@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: 004_update_storage_quota
+      author: Erjan
+      changes:
+        - update:
+            tableName: users
+            columns:
+              - column:
+                  name: storage_quota
+                  value: 5368709120
+            where: storage_quota IS NULL

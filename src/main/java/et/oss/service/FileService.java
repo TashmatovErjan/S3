@@ -16,5 +16,11 @@ public interface FileService {
 
     Long getUserFilesCount(Long authorId);
 
+    Long getUsedSpacePercent(Long authorId);
+
+    String getFormattedUsedSpace(Long authorId);
+
+    String getFormattedQuota(Long authorId);
+
 //    void deleteFile(String fileName);
 }

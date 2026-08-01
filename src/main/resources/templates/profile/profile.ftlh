@@ -44,7 +44,7 @@
             </div>
             <div class="p-stat">
                 <div class="p-stat-label">Занято</div>
-                <div class="p-stat-val">${usedSpace!'0 МБ'}</div>
+                <div class="p-stat-val">${storageQuota}</div>
             </div>
         </div>
 
@@ -52,11 +52,11 @@
             <div class="p-label">Хранилище</div>
             <div class="p-card">
                 <div class="p-bar-wrap">
-                    <div class="p-bar" style="width: ${storagePercent!0}%;"></div>
+                    <div class="p-bar" style="width: ${getUsedSpacePercent!0}%;"></div>
                 </div>
                 <div class="p-bar-meta">
-                    <span style="font-size:12px; color:#888;">${usedSpace!'0 МБ'} из 5 ГБ</span>
-                    <span style="font-size:12px; color:#888;">${storagePercent!0}%</span>
+                    <span style="font-size:12px; color:#888;">${storageQuota!'0 МБ'} из ${userQuota} </span>
+                    <span style="font-size:12px; color:#888;">${getUsedSpacePercent}%</span>
                 </div>
             </div>
         </div>
@@ -72,10 +72,10 @@
                     <span class="p-key">Пароль</span>
                     <span class="p-val">••••••••</span>
                 </div>
-                <div class="p-row">
-                    <span class="p-key">Роль</span>
-                    <span class="p-val">${user.role!''}</span>
-                </div>
+<#--                <div class="p-row">-->
+<#--                    <span class="p-key">Роль</span>-->
+<#--                    <span class="p-val">${user.role!''}</span>-->
+<#--                </div>-->
             </div>
         </div>
 

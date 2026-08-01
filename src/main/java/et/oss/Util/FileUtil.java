@@ -61,5 +61,16 @@ public class FileUtil {
         }
     }
 
+    public String formatSize(Long bytes) {
+        if (bytes == null) return "0 КБ";
+        if (bytes < 1024 * 1024) {
+            return (bytes / 1024) + " КБ";
+        } else if (bytes < 1024L * 1024 * 1024) {
+            return (bytes / (1024 * 1024)) + " МБ";
+        } else {
+            return String.format("%.1f ГБ", bytes / (1024.0 * 1024 * 1024));
+        }
+    }
+
 
 }

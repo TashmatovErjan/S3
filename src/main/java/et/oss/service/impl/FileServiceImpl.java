@@ -87,6 +87,22 @@ public class FileServiceImpl implements FileService {
                 .build();
     }
 
+    @Override
+    public Long getUsedSpacePercent(Long authorId){
+        User userDto = authService.getUserById(authorId);
+        return (fileRepository.sumSizeByAuthorId(authorId) * 100) / userDto.getStorageQuota();
+    }
+
+    @Override
+    public String getFormattedUsedSpace(Long authorId) {
+        return fileUtil.formatSize(fileRepository.sumSizeByAuthorId(authorId));
+    }
+
+    @Override
+    public String getFormattedQuota(Long authorId) {
+        return fileUtil.formatSize(authService.getUserById(authorId).getStorageQuota());
+    }
+
     private FileDto convertToDto(File file) {
         return FileDto.builder()
                 .id(file.getId())

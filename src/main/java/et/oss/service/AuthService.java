@@ -25,4 +25,6 @@ public interface AuthService {
 
     void makeResetPasswdLink(HttpServletRequest request)
             throws UsernameNotFoundException, UnsupportedEncodingException, MessagingException;
+
+    User getUserById(Long userId);
 }

@@ -95,11 +95,18 @@ public class AuthServiceImpl implements AuthService {
         emailService.sendEmail(email, resetPasswordLink);
     }
 
+    @Override
+    public User getUserById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("Пользователь не найден"));
+    }
+
     private UserDto convertToDto(User user) {
         return UserDto.builder()
                 .id(user.getId())
                 .email(user.getEmail())
                 .roleId(user.getRoleId())
+                .storageQuota(user.getStorageQuota())
                 .build();
     }
 

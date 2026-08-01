@@ -19,4 +19,6 @@ public class UserDto {
 
     private Long roleId;
 
+    private Long storageQuota;
+
 }
